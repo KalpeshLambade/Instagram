@@ -1,3 +1,5 @@
+import "./Component.css";
+
 function Sidebar(){
     return(
         <div className="home-sidenav">

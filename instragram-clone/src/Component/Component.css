@@ -356,3 +356,130 @@
     border:1px solid grey;
     border-radius: 50%;
 }
+
+/* Registration */
+
+#signup-fullpage {
+    border: 1px solid black;
+    width: 100%;
+    height: 800px;
+}
+
+#signup {
+    border: 1px solid grey;
+    width: 25%;
+    margin: auto;
+    height: 550px;
+    margin-top: 50px;
+}
+
+#signup-one {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 100px;
+}
+
+#signup-one img {
+    width: 60%;
+    margin-left: 70px;
+    height: 100%;
+}
+
+#signup-five {
+    /* border: 1px solid black; */
+    width: 75%;
+    margin: auto;
+    height: 40px;
+    margin-top: 13px;
+}
+
+#signup-five-one {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(0,149,246);
+    color: white;
+    border: none;
+    outline: none;
+}
+
+#signup-five-f-one i {
+    padding-top: 12px;
+}
+
+#signup-five-f-two p {
+    margin-top: 7px;
+    margin-left: 15px;
+}
+
+#signup-five-two {
+    text-align: center;
+}
+
+#signup-two {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 150px;
+}
+
+#signup-two form {
+    text-align: center;
+}
+
+#signup-two form input {
+    height: 30px;
+    margin-top: 5px;
+    width: 75%;
+}
+
+#signup-three{
+    margin-top: 8px;
+}
+
+#signup-three fieldset {
+    border: none;
+    border-top: 1px solid grey;
+    text-align: center;
+    width: 75%;
+    margin: auto;
+}
+
+#signup-four {
+    /* border: 1px solid black; */
+    width: 75%;
+    margin: auto;
+    font-size: 12px;
+    height: 48px;
+    margin-top: 12px;
+   text-align: center;
+}
+
+#signup-content {
+    /* border: 1px solid grey; */
+    width: 75%;
+    margin: auto;
+    height: 35px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+}
+
+#signup-content-info{
+    /* border: 1px solid grey; */
+    width: 75%;
+    margin: auto;
+    height: 40px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+}
+#signup-two >form >input:last-child{
+    background-color: #158bda;
+    border:none;
+    outline: none;
+    color:white;
+    font-size: 1.2vw;
+}
