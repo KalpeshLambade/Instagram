@@ -64,7 +64,7 @@ function Login() {
           </div>
           <div className="login-password">
             <p>
-              <i class="fa-brands fa-square-facebook"></i> Log in With Facebook
+              <i className="fa-brands fa-square-facebook"></i> Log in With Facebook
             </p>
             <p>Forgot Password</p>
           </div>

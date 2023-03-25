@@ -14,27 +14,27 @@ function Sidebar(){
               <p>Home</p>
             </div>
             <div>
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
               <p>Search</p>
             </div>
             <div>
-              <i class="fa-regular fa-compass"></i>
+              <i className="fa-regular fa-compass"></i>
               <p>Explore</p>
             </div>
             <div>
-              <i class="fa-solid fa-camera-retro"></i>
+              <i className="fa-solid fa-camera-retro"></i>
               <p>Reels</p>
             </div>
             <div>
-              <i class="fa-solid fa-location-arrow"></i>
+              <i className="fa-solid fa-location-arrow"></i>
               <p>Messages</p>
             </div>
             <div>
-              <i class="fa-regular fa-heart"></i>
+              <i className="fa-regular fa-heart"></i>
               <p>Notification</p>
             </div>
             <div>
-              <i class="fa-solid fa-plus"></i>
+              <i className="fa-solid fa-plus"></i>
               <p>Create</p>
             </div>
             <div>
@@ -44,7 +44,7 @@ function Sidebar(){
         </div>
 
         <div>
-          <i class="fa-solid fa-bars"></i>
+          <i className="fa-solid fa-bars"></i>
           <p>More</p>
         </div>
       </div>
