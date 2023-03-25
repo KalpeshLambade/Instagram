@@ -4,12 +4,12 @@
     box-sizing: border-box;
 }
 #login{
-    
+    height: 100vh;
 }
-#login >div{
+#login >div:nth-child(1){
     height:85vh;
     width:100%;
-    border:1px solid red;
+    /* border:1px solid red; */
 }
 .login-top{
     height:60%;
@@ -136,4 +136,46 @@
 .login-bot >div >div >img{
     height:100%;
     width:100%;
+}
+
+/* Footer */
+#footerPage{
+    height:10vh;
+    /* border:1px solid red; */
+}
+#foot{
+    height:5vh;
+    width:80%;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content:space-evenly;
+    margin:auto;
+}
+
+#foot>div{
+    /* width:5%; */
+    height:5vh;
+    /* border: 1px solid black; */
+    margin-left: 15px;
+    font-size: 12px;
+    opacity:0.8;
+    font-size:0.9vw;
+}
+
+#language{
+    width:50%;
+    margin:auto;
+    /* border: 1px solid black; */
+}
+#language>select{
+    margin: none;
+    outline: none;
+    Border: none;
+    opacity:0.8;
+    font-size:0.9vw;
+}
+
+#language>small{
+    opacity:0.8;
+    font-size:0.9vw;
 }

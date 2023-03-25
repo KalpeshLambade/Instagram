@@ -1,4 +1,5 @@
 import "./Component.css";
+import Footer from "./Footer";
 
 function Login() {
   return (
@@ -47,6 +48,7 @@ function Login() {
           </div>
         </div>
       </div>
+    <Footer/>
     </div>
   );
 }
