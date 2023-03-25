@@ -64,7 +64,7 @@ function Homepage() {
             <div></div>
             <div></div>
         </div>
-        <div></div>
+        <div className="home-add-content"></div>
       </div>
       <div className="home-suggestions">
         <div className="home-suggestions-top"></div>
