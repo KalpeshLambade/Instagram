@@ -1,10 +1,6 @@
-import "./Component.css";
-import Sidebar from "./Sidebar";
-
-function Homepage() {
-  return (
-    <div id="homePage">
-      {/* <div className="home-sidenav">
+function Sidebar(){
+    return(
+        <div className="home-sidenav">
         <div>
           <div>
             <img
@@ -51,12 +47,7 @@ function Homepage() {
           <i class="fa-solid fa-bars"></i>
           <p>More</p>
         </div>
-      </div> */}
-      <Sidebar/>
-      <div className="home-content"></div>
-      <div className="home-"></div>
-    </div>
-  );
+      </div>
+    )
 }
-
-export default Homepage;
+export default Sidebar;
