@@ -1,7 +1,45 @@
 import "./Component.css";
 import Footer from "./Footer";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const router = useNavigate();
+
+  function checkLog(e) {
+    e.preventDefault();
+
+    var dataFromLs = JSON.parse(localStorage.getItem("instaUserData"));
+
+    var flag = false;
+    for (var i = 0; i < dataFromLs.length; i++) {
+      if (
+        dataFromLs[i].email === formData.email &&
+        dataFromLs[i].password === formData.password
+      ) {
+        flag = true;
+      }
+    }
+    if (flag) {
+      localStorage.setItem("instaCurrentUser", JSON.stringify(formData.email));
+      setFormData({ email: "", password: "" });
+      router("/");
+      alert("Log in sucessful");
+    } else {
+      setFormData({ email: "", password: "" });
+      alert("Please check email or password");
+    }
+  }
+
+  function featchData(e) {
+    var value = e.target.value;
+    var name = e.target.name;
+    // console.log(name,value) ;
+    setFormData({ ...formData, [name]: value });
+  }
+
   return (
     <div id="login">
       <div>
@@ -13,10 +51,10 @@ function Login() {
             />
           </div>
           <div className="login-form">
-            <form>
-              <input type="email" name="" placeholder="Email" />
-              <input type="password" placeholder="Password" />
-              <input type="submit" name="" value="Log in" />
+            <form onSubmit={(e) => {checkLog(e)}}>
+              <input type="email" name="email" placeholder="Email" onChange={(e) =>{featchData(e)}} value={formData.email}/>
+              <input type="password" name="password" placeholder="Password" onChange={(e) =>{featchData(e)}} value={formData.password}/>
+              <input type="submit" value="Log in" onChange={(e) =>{featchData(e)}}/>
             </form>
           </div>
           <div className="login-or">
@@ -40,15 +78,21 @@ function Login() {
           <p>Get the app.</p>
           <div>
             <div>
-              <img src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png" alt="store" />
+              <img
+                src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png"
+                alt="store"
+              />
             </div>
             <div>
-              <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="store" />
+              <img
+                src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png"
+                alt="store"
+              />
             </div>
           </div>
         </div>
       </div>
-    <Footer/>
+      <Footer />
     </div>
   );
 }
