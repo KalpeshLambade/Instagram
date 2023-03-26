@@ -19,7 +19,10 @@ const AddPost = () => {
           <div>X</div>
         </div>
         <div className="post-mid">
-          <input type="text" placeholder="Image Url" />
+          <img
+            src="https://embedsocial.com/wp-content/uploads/2020/10/add-links-instagram-posts.jpg.webp"
+            alt="logo"
+          />
         </div>
         <div className="post-bot">
           <div>
@@ -29,7 +32,8 @@ const AddPost = () => {
                 <p>{userInfo && userInfo["currentUserName"]}</p>
               </div>
               <div>
-                <input type="text" name="" placeholder="Write a caption ..." />
+                <input type="text" placeholder="Caption" />
+                <input type="text" placeholder="Image Url" />
               </div>
             </div>
             <div className="post-bot-bot">
@@ -45,6 +49,9 @@ const AddPost = () => {
                 <p>Advance setting</p>
                 <i className="fa-sharp fa-solid fa-arrow-down"></i>
               </div>
+            </div>
+            <div className="post-button">
+              <button>Submit</button>
             </div>
           </div>
         </div>
