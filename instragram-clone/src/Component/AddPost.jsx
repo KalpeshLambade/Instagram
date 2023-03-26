@@ -1,22 +1,77 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Component.css";
+import { toast } from "react-hot-toast";
 
 const AddPost = () => {
   const [userInfo, setUserInfo] = useState();
+  const route = useNavigate();
+  const [post, setPost] = useState({
+    caption: "",
+    image: "",
+    username: "",
+    useremail: "",
+  });
 
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("CurrentUserIn")));
-  }, []);
+  }, [post]);
+
+  function addPost(e) {
+    e.preventDefault();
+    // console.log(post);
+
+    var dataFromLs = JSON.parse(localStorage.getItem("postsIn")) || [];
+
+    if (userInfo) {
+      var obj = post;
+      obj["username"] = userInfo.currentUserName;
+      obj["useremail"] = userInfo.currentEmail;
+      setPost(obj);
+
+      dataFromLs.push(post);
+      localStorage.setItem("postsIn", JSON.stringify(dataFromLs));
+
+      setPost({
+        caption: "",
+        image: "",
+        username: "",
+        useremail: "",
+      });
+      toast.success("Posted");
+    } else {
+      toast.error("Login to Add post");
+    }
+  }
+
+  function fetchData(e) {
+    var name = e.target.name;
+    var value = e.target.value;
+
+    setPost({ ...post, [name]: value });
+  }
 
   return (
     <div id="post">
       <div>
         <div className="post-top">
-          <div>
+          <div
+            className="cursor"
+            onClick={() => {
+              route("/");
+            }}
+          >
             <i className="fa-sharp fa-solid fa-arrow-left"></i>
           </div>
           <div>Create new post</div>
-          <div>X</div>
+          <div
+            className="cursor"
+            onClick={() => {
+              route("/");
+            }}
+          >
+            X
+          </div>
         </div>
         <div className="post-mid">
           <img
@@ -32,8 +87,24 @@ const AddPost = () => {
                 <p>{userInfo && userInfo["currentUserName"]}</p>
               </div>
               <div>
-                <input type="text" placeholder="Caption" />
-                <input type="text" placeholder="Image Url" />
+                <input
+                  type="text"
+                  placeholder="Caption"
+                  onChange={(e) => {
+                    fetchData(e);
+                  }}
+                  name="caption"
+                  value={post.caption}
+                />
+                <input
+                  type="text"
+                  placeholder="Image Url"
+                  onChange={(e) => {
+                    fetchData(e);
+                  }}
+                  name="image"
+                  value={post.image}
+                />
               </div>
             </div>
             <div className="post-bot-bot">
@@ -51,7 +122,13 @@ const AddPost = () => {
               </div>
             </div>
             <div className="post-button">
-              <button>Submit</button>
+              <button
+                onClick={(e) => {
+                  addPost(e);
+                }}
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>
