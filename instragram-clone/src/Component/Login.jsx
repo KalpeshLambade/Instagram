@@ -2,34 +2,46 @@ import "./Component.css";
 import Footer from "./Footer";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
-
   const router = useNavigate();
+
 
   function checkLog(e) {
     e.preventDefault();
 
-    var dataFromLs = JSON.parse(localStorage.getItem("instaUserData"));
+    var dataFromLs = JSON.parse(localStorage.getItem("userDataIn"));
 
     var flag = false;
+    var storeName ;
+   
     for (var i = 0; i < dataFromLs.length; i++) {
       if (
         dataFromLs[i].email === formData.email &&
         dataFromLs[i].password === formData.password
       ) {
         flag = true;
+        storeName = dataFromLs[i].username;
       }
     }
+   
     if (flag) {
-      localStorage.setItem("instaCurrentUser", JSON.stringify(formData.email));
+      localStorage.setItem(
+        "CurrentUserIn",
+        JSON.stringify({
+          currentEmail: formData.email,
+          currentUserName: storeName,
+        })
+      );
+      
       setFormData({ email: "", password: "" });
       router("/");
-      alert("Log in sucessful");
+      toast.success("Log in sucessful");
     } else {
       setFormData({ email: "", password: "" });
-      alert("Please check email or password");
+      toast.error("Please check email or password");
     }
   }
 
@@ -51,10 +63,36 @@ function Login() {
             />
           </div>
           <div className="login-form">
-            <form onSubmit={(e) => {checkLog(e)}}>
-              <input type="email" name="email" placeholder="Email" onChange={(e) =>{featchData(e)}} value={formData.email}/>
-              <input type="password" name="password" placeholder="Password" onChange={(e) =>{featchData(e)}} value={formData.password}/>
-              <input type="submit" value="Log in" onChange={(e) =>{featchData(e)}}/>
+            <form
+              onSubmit={(e) => {
+                checkLog(e);
+              }}
+            >
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                onChange={(e) => {
+                  featchData(e);
+                }}
+                value={formData.email}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={(e) => {
+                  featchData(e);
+                }}
+                value={formData.password}
+              />
+              <input
+                type="submit"
+                value="Log in"
+                onChange={(e) => {
+                  featchData(e);
+                }}
+              />
             </form>
           </div>
           <div className="login-or">
@@ -64,7 +102,8 @@ function Login() {
           </div>
           <div className="login-password">
             <p>
-              <i className="fa-brands fa-square-facebook"></i> Log in With Facebook
+              <i className="fa-brands fa-square-facebook"></i> Log in With
+              Facebook
             </p>
             <p>Forgot Password</p>
           </div>

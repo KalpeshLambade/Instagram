@@ -1,6 +1,8 @@
 import "./Component.css";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar(){
+  const route = useNavigate();
     return(
         <div className="home-sidenav">
         <div>
@@ -35,7 +37,7 @@ function Sidebar(){
               <i className="fa-regular fa-heart"></i>
               <p>Notification</p>
             </div>
-            <div>
+            <div onClick={() => {route('/post')}}>
               <i className="fa-solid fa-plus"></i>
               <p>Create</p>
             </div>

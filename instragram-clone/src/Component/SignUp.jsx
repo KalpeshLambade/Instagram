@@ -1,50 +1,48 @@
 import { useState } from "react";
 import "./Component.css";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import toast  from "react-hot-toast";
+import Footer from "./Footer";
 
 function Register() {
-    const [userData, setUserData] = useState({
-        name: "",
-        email: "",
-        username:"",
-        password: "",
-      });
-  const route = useNavigate();
+  const[userData, setUserData] =useState({email:'',name:'',username:'',password:''});
+  const route =useNavigate();
 
-  function signup(e) {
+  function submit(e){
     e.preventDefault();
 
-    var dataFromLs = JSON.parse(localStorage.getItem("userDataInsta")) || [];
 
+    var dataFromLs =JSON.parse(localStorage.getItem("userDataIn")) || [];
     var flag = false;
-    for (var i = 0; i < dataFromLs.length; i++) {
-      if (dataFromLs[i].email === userData.email) {
-        flag = true;
+
+    for(var i=0; i<dataFromLs.length; i++){
+      if(dataFromLs[i].email === userData.email){
+        flag =true;
       }
     }
-    if (flag) {
-      setUserData({ ...userData, ["email"]: "" });
-      alert("Email Already Exsited");
-      
-    } else if (userData.password.length < 8) {
-      setUserData({ ...userData, ["password"]: "" });
-      alert("Password must of 8 chracters");
-   
-    } else {
+
+    if(flag){
+      setUserData({...userData, email:''});
+      toast.error("Email already Present");
+    }
+    else if(userData.password.length <8){
+      setUserData({...userData, password:''})
+      toast.error("password should be of 8 characters");
+    }
+    else{
       dataFromLs.push(userData);
-      localStorage.setItem("userDataR", JSON.stringify(dataFromLs));
-      setUserData({ name: "", email: "",username:"", password: "" });
-      route("/login");
-      alert("Registration Sucessful");
-     
+      localStorage.setItem("userDataIn",JSON.stringify(dataFromLs));
+      setUserData({email:'',name:'',username:'',password:''});
+      route('/login');
+      toast.success("Signup Scucessful");
     }
   }
 
-  function updatingData(e) {
-    var name = e.target.name;
-    var value = e.target.value;
+  function formData(e){
+    var name= e.target.name;
+    var value= e.target.value;
 
-    setUserData({...userData, [name] : value})
+    setUserData({...userData, [name]:value});
   }
 
   return (
@@ -62,7 +60,7 @@ function Register() {
         <div id="signup-five">
           <div id="signup-five-one">
             <div id="signup-five-f-one">
-              <i class="fa-brands fa-facebook"></i>
+              <i className="fa-brands fa-facebook"></i>
             </div>
             <div id="signup-five-f-two">
               <p>Log in with facebook</p>
@@ -75,41 +73,27 @@ function Register() {
           </fieldset>
         </div>
         <div id="signup-two">
-          <form onSubmit={(e) => signup(e)}>
-            <input
-              onChange={(e) => {
-                updatingData(e);
-              }}
-              name="email"
-              type="email"
-              placeholder="Enter your Email"
-            />
+          <form onSubmit={(e) => {submit(e)}}>
+            <input name="email" type="email" placeholder="Enter your Email" onChange={(e) => {formData(e)}} value={userData.email} required/>
+            <br />
+            <input name="name" type="text" placeholder="Enter your Full Name" onChange={(e) => {formData(e)}} value={userData.name} required/>
             <br />
             <input
-              onChange={(e) => {
-                updatingData(e);
-              }}
-              name="name"
-              type="text"
-              placeholder="Enter your Full Name"
-            />
-            <br />
-            <input
-              onChange={(e) => {
-                updatingData(e);
-              }}
               name="username"
               type="text"
               placeholder="Enter your username"
+              onChange={(e) => {formData(e)}}
+              value={userData.username}
+              required 
             />
             <br />
             <input
-              onChange={(e) => {
-                updatingData(e);
-              }}
               name="password"
-              type="Password"
+              type="password"
               placeholder="Enter your password"
+              onChange={(e) => {formData(e)}}
+              value={userData.password}
+              required 
             />
             <br />
             <div id="signup-four">
@@ -128,6 +112,24 @@ function Register() {
           </form>
         </div>
       </div>
+      <div className="login-bot">
+          <p>Get the app.</p>
+          <div>
+            <div>
+              <img
+                src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png"
+                alt="store"
+              />
+            </div>
+            <div>
+              <img
+                src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png"
+                alt="store"
+              />
+            </div>
+          </div>
+        </div>
+      <Footer/>
     </div>
   );
 }

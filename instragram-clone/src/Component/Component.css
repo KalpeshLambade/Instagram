@@ -360,7 +360,7 @@
 /* Registration */
 
 #signup-fullpage {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
     height: 800px;
 }
@@ -482,4 +482,103 @@
     outline: none;
     color:white;
     font-size: 1.2vw;
+}
+
+/* post */
+#post{
+    height: 100vh;
+    width:100%;
+}
+#post>div:nth-child(1){
+    height: 80%;
+    width:55%;
+    margin: 5% auto;
+    border:1px solid red;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.post-top{
+    height: 10%;
+    width: 98%;
+    margin: 0 auto;
+    border:1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5vw;
+}
+.post-top i{
+    font-size: 1.5vw;
+}
+.post-mid{
+    width:60%;
+    height:90%;
+    border:1px solid purple;
+}
+.post-bot{
+    width:40%;
+    height: 90%;
+    /* border:1px solid blue; */
+}
+.post-bot >div{
+    height:80%;
+    /* border:1px solid blue; */
+}
+.post-bot-top{
+    height: 70%;
+    /* border:1px solid peru; */
+}
+.post-bot-bot{
+    height: 30%;
+    /* border:1px solid purple; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.post-bot-bot >div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    margin:auto;
+    border-bottom:1px solid grey;
+    height:30%;
+}
+.post-bot-bot >div p,i{
+    font-size: 1.2vw;
+    color:rgb(54, 54, 54);
+    padding: 0 2%; 
+}
+.post-bot-top>div:nth-child(1){
+    /* border: 1px solid red; */
+    height:20%;
+    display: flex;
+    justify-content: space-evenly;
+    width: 55%;
+    margin-left: 5%;
+    align-items: center;
+}
+.post-bot-top>div:nth-child(1) >div{
+    border: 1px solid blue;
+    height: 80%;
+    width:25%;
+    margin: 1% 0;
+    border-radius: 50%;
+}
+.post-bot-top>div:nth-child(1) >p{
+    font-size: 1.2vw;
+}
+.post-bot-top>div:nth-child(2){
+    height:80%;
+    width:100%;
+    /* border: 1px solid rgb(255, 0, 149); */
+}
+.post-bot-top>div:nth-child(2) >input{
+    height: 100%;
+    width:100%;
+    padding: 0 5%;
+    font-size: 1.2vw;
+    border: none;
+    outline: none;
 }
