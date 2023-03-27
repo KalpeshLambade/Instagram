@@ -18,8 +18,9 @@ function Homepage() {
           if (dataFromLs[i].posts) {
             array = array.concat(dataFromLs[i].posts);
           }
-          setUserData(array);
+          // setUserData(array);
         }
+        setUserData(random(array));
       }
       setCurrentData(currentUser.currentUserName);
     } else {
@@ -30,6 +31,23 @@ function Homepage() {
   function change() {
     setLike(!like);
   }
+
+  function random(array){
+    let currentIndex = array.length;
+    let randomIndex;
+
+    while(currentIndex !== 0){
+
+      randomIndex =Math.floor(Math.random()* currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+
+    }
+    return array;
+  }
+
+
 
   // console.log(userData);
 

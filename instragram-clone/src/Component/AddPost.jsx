@@ -87,7 +87,13 @@ const AddPost = () => {
           <div>
             <div className="post-bot-top">
               <div>
-                <div></div>
+                <div>
+                <img
+                  src="https://cdn.pixabay.com/photo/2016/06/11/12/15/females-1450050_960_720.jpg"
+                  alt="pro-pic"
+                  className="resize-img"
+                />
+                </div>
                 <p>{userInfo && userInfo["currentUserName"]}</p>
               </div>
               <div>

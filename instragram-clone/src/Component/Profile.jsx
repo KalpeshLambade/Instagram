@@ -5,15 +5,15 @@ import Sidebar from "./Sidebar";
 import { useEffect, useState } from "react";
 
 const Profile = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState();
   const [userPosts, setUserPost] = useState();
   const route = useNavigate();
 
   useEffect(() => {
     displayPost();
-  }, []);
+  },[]);
 
-  console.log(userPosts);
+  // console.log(userPosts);
 
   function displayPost() {
     var currentUser = JSON.parse(localStorage.getItem("CurrentUserIn"));
@@ -26,7 +26,7 @@ const Profile = () => {
           dataFromLs[i].posts
         ) {
           setUserPost(dataFromLs[i].posts);
-          setUser(true);
+          setUser(dataFromLs[i].username);
         }
       }
     } else {
@@ -52,7 +52,7 @@ const Profile = () => {
             </div>
             <div>
               <div className="pro-username">
-                <p>Username</p>
+                <p>{user}</p>
                 <button>Edit Profile</button>
                 <button>Add Tool</button>
                 <div>
