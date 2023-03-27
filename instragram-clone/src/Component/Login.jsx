@@ -110,7 +110,7 @@ function Login() {
         </div>
         <div className="login-mid">
           <p>
-            Don't have an account? <b>Sign up</b>
+            Don't have an account? <b onClick={() => {router("/signup")}} className="cursor">Sign up</b>
           </p>
         </div>
         <div className="login-bot">

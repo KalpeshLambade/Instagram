@@ -9,35 +9,39 @@ const AddPost = () => {
   const [post, setPost] = useState({
     caption: "",
     image: "",
-    username: "",
-    useremail: "",
+    username:"",
   });
 
   useEffect(() => {
-    setUserInfo(JSON.parse(localStorage.getItem("CurrentUserIn")));
-  }, [post]);
+    var currentData = JSON.parse(localStorage.getItem("CurrentUserIn"));
+    if (currentData) {
+      setUserInfo(currentData);
+    }
+  }, []);
 
   function addPost(e) {
     e.preventDefault();
-    // console.log(post);
-
-    var dataFromLs = JSON.parse(localStorage.getItem("postsIn")) || [];
-
     if (userInfo) {
-      var obj = post;
-      obj["username"] = userInfo.currentUserName;
-      obj["useremail"] = userInfo.currentEmail;
-      setPost(obj);
+      var newVal =post;
+      newVal.username =userInfo.currentUserName;
+      var dataFromLs = JSON.parse(localStorage.getItem("userDataIn"));
 
-      dataFromLs.push(post);
-      localStorage.setItem("postsIn", JSON.stringify(dataFromLs));
+      for (var i = 0; i < dataFromLs.length; i++) {
+        if (dataFromLs[i].email === userInfo.currentEmail) {
+          var obj = dataFromLs[i];
+          obj["posts"] = obj["posts"] || [];
+          obj["posts"].push(post);
+          dataFromLs[i] = obj;
+        }
+      }
 
+      localStorage.setItem("userDataIn", JSON.stringify(dataFromLs));
       setPost({
         caption: "",
         image: "",
-        username: "",
-        useremail: "",
+        username:"",
       });
+      route("/");
       toast.success("Posted");
     } else {
       toast.error("Login to Add post");

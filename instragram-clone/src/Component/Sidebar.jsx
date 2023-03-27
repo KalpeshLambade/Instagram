@@ -6,13 +6,16 @@ import { useEffect, useState } from "react";
 function Sidebar() {
   const route = useNavigate();
   const [isUser, setIsUser] = useState(false);
-  const[data,setData] =useState();
-
+  const [data, setData] = useState();
 
   useEffect(() => {
     var dataFromLs = JSON.parse(localStorage.getItem("CurrentUserIn"));
     if (dataFromLs) {
       setIsUser(true);
+    }
+    else{
+      route("/login");
+      toast.error("Login to your Profile");
     }
   }, []);
 
@@ -25,7 +28,7 @@ function Sidebar() {
     route("/login");
     toast.success("logout sucessful");
   }
-
+  
   return (
     <div className="home-sidenav">
       <div>
@@ -35,8 +38,8 @@ function Sidebar() {
             alt="logo"
           />
         </div>
-        <div className="home-side-links">
-          <div>
+        <div className="home-side-links cursor">
+          <div onClick={() => {route("/")}}>
             <i className="fa-solid fa-house"></i>
             <p>Home</p>
           </div>
@@ -61,6 +64,7 @@ function Sidebar() {
             <p>Notification</p>
           </div>
           <div
+            className="cursor"
             onClick={() => {
               route("/post");
             }}
@@ -68,7 +72,12 @@ function Sidebar() {
             <i className="fa-solid fa-plus"></i>
             <p>Create</p>
           </div>
-          <div>
+          <div
+            className="cursor"
+            onClick={() => {
+              route("/profile");
+            }}
+          >
             <p>Profile</p>
           </div>
         </div>
@@ -84,13 +93,11 @@ function Sidebar() {
           <i className="fa-solid fa-user"></i>
           <p>LogOut</p>
         </div>
-      ) 
-      : 
-      (
+      ) : (
         <div
           className="cursor"
           onClick={() => {
-            route('/login');
+            route("/login");
           }}
         >
           <i className="fa-solid fa-user"></i>
