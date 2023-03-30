@@ -6,10 +6,12 @@ import { toast } from "react-hot-toast";
 const AddPost = () => {
   const [userInfo, setUserInfo] = useState();
   const route = useNavigate();
+  const[propic, setPropic] =useState();
   const [post, setPost] = useState({
     caption: "",
     image: "",
     username:"",
+    profileImage:""
   });
 
   useEffect(() => {
@@ -18,6 +20,21 @@ const AddPost = () => {
       setUserInfo(currentData);
     }
   }, []);
+
+  useEffect(() => {
+    var currentUser =JSON.parse(localStorage.getItem("CurrentUserIn"));
+    if(currentUser){
+      // var setimage;
+      var dataFromLs =JSON.parse(localStorage.getItem("userDataIn"));
+      for(var i=0; i<dataFromLs.length; i++){
+        if(dataFromLs[i].email === currentUser.currentEmail ){
+          setPropic(dataFromLs[i].profileImage);
+          setPost({...post, ["profileImage"]:dataFromLs[i].profileImage})
+        }
+      }
+    }
+
+  },[]);
 
   function addPost(e) {
     e.preventDefault();
@@ -40,6 +57,7 @@ const AddPost = () => {
         caption: "",
         image: "",
         username:"",
+        profileImage:""
       });
       route("/");
       toast.success("Posted");
@@ -89,7 +107,7 @@ const AddPost = () => {
               <div>
                 <div>
                 <img
-                  src="https://cdn.pixabay.com/photo/2016/06/11/12/15/females-1450050_960_720.jpg"
+                  src={propic}
                   alt="pro-pic"
                   className="resize-img"
                 />

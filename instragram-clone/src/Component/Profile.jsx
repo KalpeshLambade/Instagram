@@ -3,21 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Sidebar from "./Sidebar";
 import { useEffect, useState } from "react";
+import Searchbar from "./Searchbar";
 
 const Profile = () => {
   const [user, setUser] = useState();
   const [userPosts, setUserPost] = useState();
+  const [savePost, setSavePost] = useState();
+  const [showSavePost, setShowSavePost] = useState(false);
+  const[showPage, setShowPage] = useState(true);
   const route = useNavigate();
 
   useEffect(() => {
     displayPost();
-  },[]);
+  }, []);
 
   // console.log(userPosts);
 
   function displayPost() {
     var currentUser = JSON.parse(localStorage.getItem("CurrentUserIn"));
-
+  
     if (currentUser) {
       var dataFromLs = JSON.parse(localStorage.getItem("userDataIn"));
       for (var i = 0; i < dataFromLs.length; i++) {
@@ -26,7 +30,10 @@ const Profile = () => {
           dataFromLs[i].posts
         ) {
           setUserPost(dataFromLs[i].posts);
-          setUser(dataFromLs[i].username);
+          setUser(dataFromLs[i]);
+        }
+        else if(dataFromLs[i].email === currentUser.currentEmail){
+          setUser(dataFromLs[i]);
         }
       }
     } else {
@@ -35,16 +42,40 @@ const Profile = () => {
     }
   }
 
+  function showSave() {
+    var dataFromLS = JSON.parse(localStorage.getItem("userDataIn"));
+    var CurrentUser = JSON.parse(localStorage.getItem("CurrentUserIn"));
+    
+    for (var i = 0; i < dataFromLS.length; i++) {
+      if (dataFromLS[i].email === CurrentUser.currentEmail) {
+        setSavePost(dataFromLS[i].save);
+      }
+    }
+    setShowSavePost(true);
+  }
+
+  function closePage(value){
+    if(value === "sidebar"){
+      setShowPage(false);
+    }
+    else{
+        setShowPage(true);
+    }
+  }
+
+  // console.log(user);
+
   return (
     <div id="profile">
-      <Sidebar />
+      {showPage ? <Sidebar onClose={() => {closePage("sidebar")}} /> : <Searchbar onClose={() => {closePage()}}/> }
+      <div className="home-empty"></div>
       <div className="profile-cont">
         <div className="pro-info">
           <div className="pro-info-top">
             <div>
               <div>
                 <img
-                  src="https://cdn.pixabay.com/photo/2016/06/11/12/15/females-1450050_960_720.jpg"
+                  src={user && user.profileImage}
                   alt="pro-pic"
                   className="resize-img"
                 />
@@ -52,8 +83,8 @@ const Profile = () => {
             </div>
             <div>
               <div className="pro-username">
-                <p>{user}</p>
-                <button>Edit Profile</button>
+                <p>{user && user.username}</p>
+                <button onClick={() => {route("/edit")}} className="cursor">Edit Profile</button>
                 <button>Add Tool</button>
                 <div>
                   <i className="fa-solid fa-gear"></i>
@@ -71,10 +102,9 @@ const Profile = () => {
                 </p>
               </div>
               <div className="pro-details">
-                <p>AK</p>
-                <p>Blogger</p>
-                <p>Nature lover | Traveler | photographer</p>
-                <p>Mumbai, Thane</p>
+                <p>{user && user.username}</p>
+                <p>{user && user.name}</p>
+                <p>{user && user.bioData}</p>
               </div>
             </div>
           </div>
@@ -96,13 +126,18 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="post-save-tag">
-          <div>
+        <div className="post-save-tag " >
+          <div onClick={() => {setShowSavePost(false)}} className="cursor">
             <i className="fa-solid fa-table-cells"></i>
             <p>POSTS</p>
           </div>
-          <div>
-            <i className="fa-regular fa-bookmark"></i>
+          <div
+            onClick={() => {
+              showSave();
+            }}
+            className="cursor"
+          >
+            <i className="fa-regular fa-bookmark "></i>
             <p>SAVED</p>
           </div>
           <div>
@@ -111,12 +146,32 @@ const Profile = () => {
           </div>
         </div>
         <div className="profile-display-posts">
-          {userPosts &&
-            userPosts.map((e, i) => (
+          {showSavePost ? (
+            <div>
+              {savePost &&
+                savePost.map((e, i) => (
+                  <div key={i}>
+                    <img src={e.image} alt="posts" />
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <div>
+              {userPosts &&
+                userPosts.map((e, i) => (
+                  <div key={i}>
+                    <img src={e.image} alt="posts" />
+                  </div>
+                ))}
+            </div>
+          )}
+
+          {/* {savePost &&
+            savePost.map((e, i) => (
               <div key={i}>
                 <img src={e.image} alt="posts" />
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
     </div>

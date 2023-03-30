@@ -5,7 +5,7 @@ import toast  from "react-hot-toast";
 import Footer from "./Footer";
 
 function Register() {
-  const[userData, setUserData] =useState({email:'',name:'',username:'',password:''});
+  const[userData, setUserData] =useState({email:'',name:'',username:'',password:'',bioData:'', profileImage:'https://img.freepik.com/free-photo/3d-rendering-zoom-call-avatar_23-2149556784.jpg?size=626&ext=jpg&ga=GA1.2.786792152.1674666070&semt=sph'});
   const route =useNavigate();
 
   function submit(e){

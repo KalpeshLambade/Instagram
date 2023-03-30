@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 
-function Sidebar() {
+function Sidebar(props) {
   const route = useNavigate();
   const [isUser, setIsUser] = useState(false);
   const [data, setData] = useState();
+  const[propic, setPropic] =useState();
 
   useEffect(() => {
     var dataFromLs = JSON.parse(localStorage.getItem("CurrentUserIn"));
@@ -18,6 +19,21 @@ function Sidebar() {
       toast.error("Login to your Profile");
     }
   }, []);
+
+  useEffect(() => {
+    var currentUser =JSON.parse(localStorage.getItem("CurrentUserIn"));
+    if(currentUser){
+      // var setimage;
+      var dataFromLs =JSON.parse(localStorage.getItem("userDataIn"));
+      for(var i=0; i<dataFromLs.length; i++){
+        if(dataFromLs[i].email === currentUser.currentEmail ){
+          // setimage =dataFromLs[i].profileImage
+          setPropic(dataFromLs[i].profileImage)
+        }
+      }
+    }
+
+  },[])
 
   if (data) {
     setIsUser(true);
@@ -43,7 +59,7 @@ function Sidebar() {
             <i className="fa-solid fa-house"></i>
             <p>Home</p>
           </div>
-          <div>
+          <div className="cursor" onClick={props.onClose} >
             <i className="fa-solid fa-magnifying-glass"></i>
             <p>Search</p>
           </div>
@@ -78,7 +94,9 @@ function Sidebar() {
               route("/profile");
             }}
           >
-            <p>Profile</p>
+            <div className="profile-image">
+              <img src={propic} alt="profile" className="resize-img"/>
+            </div>
           </div>
         </div>
       </div>
