@@ -39,7 +39,7 @@ const Searchbar = (props) => {
 
   },[])
 
-  // console.log(propic);
+  // console.log(people);
 
   function displayCross(){
     setShowCross(true);
@@ -133,7 +133,7 @@ const Searchbar = (props) => {
             <div>
               <div>
               <img
-                src={propic}
+                src={people.profileImage}
                 alt="pro-pic"
                 className="resize-img"
               />

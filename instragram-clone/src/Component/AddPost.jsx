@@ -6,13 +6,15 @@ import { toast } from "react-hot-toast";
 const AddPost = () => {
   const [userInfo, setUserInfo] = useState();
   const route = useNavigate();
-  const[propic, setPropic] =useState();
+  const [propic, setPropic] = useState();
   const [post, setPost] = useState({
     caption: "",
     image: "",
-    username:"",
-    profileImage:""
+    username: "",
+    profileImage: "",
   });
+
+  const [Status, setStatus] = useState({statusImg:'', username:""});
 
   useEffect(() => {
     var currentData = JSON.parse(localStorage.getItem("CurrentUserIn"));
@@ -22,25 +24,25 @@ const AddPost = () => {
   }, []);
 
   useEffect(() => {
-    var currentUser =JSON.parse(localStorage.getItem("CurrentUserIn"));
-    if(currentUser){
+    var currentUser = JSON.parse(localStorage.getItem("CurrentUserIn"));
+    if (currentUser) {
+      setStatus({ ...Status, ["username"]:currentUser.currentUserName}); //adding username to status
       // var setimage;
-      var dataFromLs =JSON.parse(localStorage.getItem("userDataIn"));
-      for(var i=0; i<dataFromLs.length; i++){
-        if(dataFromLs[i].email === currentUser.currentEmail ){
+      var dataFromLs = JSON.parse(localStorage.getItem("userDataIn"));
+      for (var i = 0; i < dataFromLs.length; i++) {
+        if (dataFromLs[i].email === currentUser.currentEmail) {
           setPropic(dataFromLs[i].profileImage);
-          setPost({...post, ["profileImage"]:dataFromLs[i].profileImage})
+          setPost({ ...post, ["profileImage"]: dataFromLs[i].profileImage });
         }
       }
     }
-
-  },[]);
-
+  }, []);
+  //Submit Post
   function addPost(e) {
     e.preventDefault();
     if (userInfo) {
-      var newVal =post;
-      newVal.username =userInfo.currentUserName;
+      var newVal = post;
+      newVal.username = userInfo.currentUserName;
       var dataFromLs = JSON.parse(localStorage.getItem("userDataIn"));
 
       for (var i = 0; i < dataFromLs.length; i++) {
@@ -56,8 +58,8 @@ const AddPost = () => {
       setPost({
         caption: "",
         image: "",
-        username:"",
-        profileImage:""
+        username: "",
+        profileImage: "",
       });
       route("/");
       toast.success("Posted");
@@ -65,12 +67,44 @@ const AddPost = () => {
       toast.error("Login to Add post");
     }
   }
+// console.log(Status);
+  //submit status
+  function submitStatus(e) {
+    e.preventDefault();
+      if(userInfo){
+        // userInfo.currentUserName
+        var dataFromLs = JSON.parse(localStorage.getItem("userDataIn"));
+        for(var i=0; i<dataFromLs.length; i++){
+          if(dataFromLs[i].email === userInfo.currentEmail ){
+            var newCode = dataFromLs[i];
+            newCode["status"] =newCode["status"] || [];
+            newCode["status"].push(Status);
+            dataFromLs[i] =newCode;
+          }
+        }
+        localStorage.setItem("userDataIn",JSON.stringify(dataFromLs));
+        route('/');
+        toast.success("Status Updated");
+      }
+      else{
+        toast.error("Login to add Posts")
+      }
+  }
 
+  //featch data for adding post
   function fetchData(e) {
     var name = e.target.name;
     var value = e.target.value;
 
     setPost({ ...post, [name]: value });
+  }
+
+  //featch data for adding status
+  function featchStatus(e) {
+    var name = e.target.name;
+    var value = e.target.value;
+
+    setStatus({ ...Status, [name]: value });
   }
 
   return (
@@ -96,21 +130,42 @@ const AddPost = () => {
           </div>
         </div>
         <div className="post-mid">
-          <img
-            src="https://embedsocial.com/wp-content/uploads/2020/10/add-links-instagram-posts.jpg.webp"
-            alt="logo"
-          />
+          <div>
+            <img
+              src="https://embedsocial.com/wp-content/uploads/2020/10/add-links-instagram-posts.jpg.webp"
+              alt="logo"
+              className="resize-img"
+            />
+          </div>
+          <div>
+            <h3>Add Post</h3>
+            <form
+              onSubmit={(e) => {
+                submitStatus(e);
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Post Url"
+                name="statusImg"
+                onChange={(e) => {
+                  featchStatus(e);
+                }}
+              />
+              <input
+                type="submit"
+                value="Add Post"
+              />
+            </form>
+          </div>
         </div>
+
         <div className="post-bot">
           <div>
             <div className="post-bot-top">
               <div>
                 <div>
-                <img
-                  src={propic}
-                  alt="pro-pic"
-                  className="resize-img"
-                />
+                  <img src={propic} alt="pro-pic" className="resize-img" />
                 </div>
                 <p>{userInfo && userInfo["currentUserName"]}</p>
               </div>

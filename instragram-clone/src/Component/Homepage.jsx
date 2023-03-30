@@ -9,6 +9,7 @@ function Homepage() {
   const [like, setLike] = useState();
   const [showPage, setShowPage] = useState(true);
   const [proInfo, setProInfo] = useState();
+  const [Status, setStatus] = useState();
 
   useEffect(() => {
     var currentUser = JSON.parse(localStorage.getItem("CurrentUserIn"));
@@ -16,21 +17,26 @@ function Homepage() {
       var dataFromLs = JSON.parse(localStorage.getItem("userDataIn"));
       if (dataFromLs) {
         var array = [];
+        var statusArray = [];
         for (var i = 0; i < dataFromLs.length; i++) {
           if (dataFromLs[i].posts) {
             array = array.concat(dataFromLs[i].posts);
           }
+          if (dataFromLs[i].status) {
+            statusArray = statusArray.concat(dataFromLs[i].status);
+            // statusArray.push(dataFromLs[i].status)
+          }
           // setUserData(array);
         }
-        setUserData(random(array));
+        setStatus(statusArray); // stored users status
+        setUserData(random(array)); // Store Posts
       }
     } else {
       toast.error("Login to your Profile");
     }
   }, []);
 
-
-  // console.log(userData);
+  // console.log(Status);
 
   useEffect(() => {
     var currentUser = JSON.parse(localStorage.getItem("CurrentUserIn"));
@@ -135,62 +141,19 @@ function Homepage() {
       <div className="home">
         <div className="home-content">
           <div>
-            <div>
-              <img
-                src="https://img.freepik.com/free-photo/happy-joyful-woman-with-arms-folded-looking_74855-3505.jpg?size=626&ext=jpg&ga=GA1.2.786792152.1674666070&semt=sph"
-                alt="pro-pic"
-                className="resize-img"
-              />
-            </div>
-            <div>
-              <img
-                src="https://cdn.pixabay.com/photo/2018/02/01/17/09/man-3123561__340.jpg"
-                alt="pro-pic"
-                className="resize-img"
-              />
-            </div>
-            <div>
-              <img
-                src="https://cdn.pixabay.com/photo/2015/01/15/12/44/model-600222__340.jpg"
-                alt="pro-pic"
-                className="resize-img"
-              />
-            </div>
-            <div>
-              <img
-                src="https://cdn.pixabay.com/photo/2012/02/29/15/40/beautiful-19075__340.jpg"
-                alt="pro-pic"
-                className="resize-img"
-              />
-            </div>
-            <div>
-              <img
-                src="https://cdn.pixabay.com/photo/2017/02/25/06/39/girl-2097003__340.jpg"
-                alt="pro-pic"
-                className="resize-img"
-              />
-            </div>
-            <div>
-              <img
-                src="https://cdn.pixabay.com/photo/2012/02/29/12/22/adult-19033__340.jpg"
-                alt="pro-pic"
-                className="resize-img"
-              />
-            </div>
-            <div>
-              <img
-                src="https://cdn.pixabay.com/photo/2018/08/01/06/43/girl-3576679__340.jpg"
-                alt="pro-pic"
-                className="resize-img"
-              />
-            </div>
-            <div>
-              <img
-                src="https://cdn.pixabay.com/photo/2022/10/01/21/25/woman-7492273__340.jpg"
-                alt="pro-pic"
-                className="resize-img"
-              />
-            </div>
+            {Status &&
+              Status.map((e, i) => (
+                <div key={i}>
+                  <div>
+                    <img
+                      src={e.statusImg}
+                      alt="pro-pic"
+                      className="resize-img"
+                    />
+                  </div>
+                  <p>{e.username}</p>
+                </div>
+              ))}
           </div>
           <div className="home-add-content">
             {userData &&
@@ -262,11 +225,12 @@ function Homepage() {
               ))}
           </div>
         </div>
+
         <div className="home-suggestions">
           <div className="home-suggestions-top">
             <div>
               <img
-                src ={proInfo && proInfo.image}
+                src={proInfo && proInfo.image}
                 alt="pro-pic"
                 className="resize-img"
               />
