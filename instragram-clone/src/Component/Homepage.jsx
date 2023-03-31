@@ -141,6 +141,13 @@ function Homepage() {
       <div className="home">
         <div className="home-content">
           <div>
+            <div>
+              <div>
+                <img src="https://www.maxpixel.net/static/photo/1x/Post-Instagram-Icon-Image-Instagram-Add-Insta-3814084.png" alt="pro-pic" className="resize-img" />
+              </div>
+              <p></p>
+            </div>
+
             {Status &&
               Status.map((e, i) => (
                 <div key={i}>
